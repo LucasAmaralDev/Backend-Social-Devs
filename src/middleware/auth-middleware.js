@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 function authMiddleware(req, res, next) {
 
     //recebendo o token
-    const token = request.headers.authorization;
+    const token = req.headers.authorization;
 
 
     if (token) {
@@ -22,7 +22,7 @@ function authMiddleware(req, res, next) {
                 }
 
                 //caso o token seja valido adiciona o id do usuario na requisição
-                request.userId = user.id;
+                req.userId = user.id;
                 next();
             }
         );
