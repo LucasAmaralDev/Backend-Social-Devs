@@ -1,4 +1,5 @@
 const { UsersModel } = require('../../models/users-model')
+const jwt = require('jsonwebtoken');
 
 class SignupUserController {
     async signup(req, res) {
@@ -51,7 +52,7 @@ class SignupUserController {
             }
 
             //verificando se sexo recebido é 'masc', 'fem' ou 'outro' se nao for retorna erro
-            if (sex !== 'masc' || sex !== 'fem' || sex !== 'outro') {
+            if (sex !== 'masc' && sex !== 'fem' && sex !== 'outro') {
                 return res.status(400).json({ error: 'Sexo inválido' })
             }
 
@@ -67,7 +68,7 @@ class SignupUserController {
             }
 
             //criando usuario
-            const criarUsuario = await UsersModel.create({
+            const user = await UsersModel.create({
                 name,
                 username,
                 email,
@@ -76,12 +77,23 @@ class SignupUserController {
                 sex
             })
 
-            //verifica se o usuario foi criado caso sim retorna "Usuario criado com sucesso"
-            if (criarUsuario) {
-                return res.status(201).json({ message: 'Usuário criado com sucesso' })
+            //verifica se o usuario foi criado caso sim retorna token
+            if (user) {
+
+                //criando token
+                const accessToken = jwt.sign(
+                    { id: user.id },
+                    process.env.TOKEN_SECRET,
+                    { expiresIn: process.env.TOKEN_EXPIRES_IN }
+                );
+
+                //retornando token
+                return res.status(201).json({ accessToken })
             }
 
         } catch (error) {
+
+           return res.status(500).json({ error: 'Erro interno' })
 
         }
 
@@ -89,4 +101,4 @@ class SignupUserController {
 
 }
 
-module.exports = { SignupUserController };
+module.exports = new SignupUserController();
