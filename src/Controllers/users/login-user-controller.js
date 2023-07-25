@@ -8,15 +8,15 @@ class LoginUserController {
         try {
 
             //recebendo dados do body
-            const { username, password } = req.body;
+            const { email, password } = req.body;
 
             //verificando se os dados foram enviados
-            if (!username || !password) {
+            if (!email || !password) {
                 return res.status(400).json({ error: 'Dados não enviados' })
             }
 
-            //verificando se o username contem espaços
-            const user = await UsersModel.findOne({ where: { username } })
+            //verificando se o usuario existe
+            const user = await UsersModel.findOne({ where: { email } })
 
             if (!user) {
                 return res.status(400).json({ error: 'Usuário não encontrado' })
