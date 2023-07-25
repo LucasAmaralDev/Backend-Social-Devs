@@ -20,4 +20,4 @@ class FollowersModel extends Model{
 
 }
 
-module.exports = FollowersModel;
+module.exports = {FollowersModel};

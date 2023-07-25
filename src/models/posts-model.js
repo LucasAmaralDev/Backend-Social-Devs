@@ -21,4 +21,4 @@ class PostsModel extends Model{
 
 }
 
-module.exports = PostsModel;
+module.exports = {PostsModel};
