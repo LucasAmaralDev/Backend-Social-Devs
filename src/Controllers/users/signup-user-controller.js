@@ -81,14 +81,14 @@ class SignupUserController {
             if (user) {
 
                 //criando token
-                const accessToken = jwt.sign(
+                const token = jwt.sign(
                     { id: user.id },
                     process.env.TOKEN_SECRET,
                     { expiresIn: process.env.TOKEN_EXPIRES_IN }
                 );
 
                 //retornando token
-                return res.status(201).json({ accessToken })
+                return res.status(201).json({ token })
             }
 
         } catch (error) {
