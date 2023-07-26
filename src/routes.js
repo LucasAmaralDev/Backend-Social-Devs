@@ -11,6 +11,7 @@ const createPostController = require("./Controllers/posts/create-post-controller
 const findPostController = require("./Controllers/posts/find-post-controller")
 const deletePostController = require("./Controllers/posts/delete-post-controller")
 const updatePostController = require("./Controllers/posts/update-post-controller")
+const findallPostController = require("./Controllers/posts/findall-post-controller")
 
 const followFollowersController = require("./Controllers/followers/follow-followers-controller")
 const unfollowFollowersController = require("./Controllers/followers/unfollow-followers-controller")
@@ -26,6 +27,8 @@ routes.get("/posts/:id", findPostController.find)
 routes.post("/posts", authMiddleware, createPostController.create)
 routes.delete("/posts/:id", authMiddleware, deletePostController.delete)
 routes.put("/posts/:id", authMiddleware, updatePostController.update)
+routes.get("/posts", authMiddleware, findallPostController.findall)
+
 
 routes.post("/follow/:id", authMiddleware, followFollowersController.follow)
 routes.delete("/unfollow/:id", authMiddleware, unfollowFollowersController.unfollow)
