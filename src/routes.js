@@ -9,6 +9,9 @@ const loginController = require("./Controllers/users/login-user-controller")
 const loadProfileController = require("./Controllers/users/loadprofile-user-controller")
 const editProfileUserController = require("./Controllers/users/editprofile-user-controller")
 
+//controller para inviar informacoes do usuario logado
+const myInfoUserController = require("./Controllers/users/myInfo-user-controller")
+
 
 
 const createPostController = require("./Controllers/posts/create-post-controller")
@@ -29,6 +32,10 @@ routes.post("/login", loginController.login)
 routes.get("/myProfile", authMiddleware, loadProfileController.loadMyProfile)
 routes.get("/profile/:username", authMiddleware, loadProfileController.loadProfile)
 routes.put("/editProfile", authMiddleware, editProfileUserController.editarPerfil)
+
+//rotas para enviar informacoes do usuario logado
+routes.get("/myInfo", authMiddleware, myInfoUserController.getMyInfo)
+
 
 
 routes.get("/posts/:id", findPostController.find)
