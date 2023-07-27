@@ -30,7 +30,7 @@ const routes = Router()
 routes.post("/signup", signupController.signup)
 routes.post("/login", loginController.login)
 routes.get("/myProfile", authMiddleware, loadProfileController.loadMyProfile)
-routes.get("/profile/:username", authMiddleware, loadProfileController.loadProfile)
+routes.get("/profile/:username", loadProfileController.loadProfile)
 routes.put("/editProfile", authMiddleware, editProfileUserController.editarPerfil)
 
 //rotas para enviar informacoes do usuario logado
