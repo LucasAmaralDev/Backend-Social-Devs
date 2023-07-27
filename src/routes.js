@@ -6,6 +6,10 @@ const { authMiddleware } = require("./middleware/auth-middleware")
 
 const signupController = require("./Controllers/users/signup-user-controller")
 const loginController = require("./Controllers/users/login-user-controller")
+const loadProfileController = require("./Controllers/users/loadprofile-user-controller")
+const editProfileUserController = require("./Controllers/users/editprofile-user-controller")
+
+
 
 const createPostController = require("./Controllers/posts/create-post-controller")
 const findPostController = require("./Controllers/posts/find-post-controller")
@@ -16,12 +20,16 @@ const findallPostController = require("./Controllers/posts/findall-post-controll
 const followFollowersController = require("./Controllers/followers/follow-followers-controller")
 const unfollowFollowersController = require("./Controllers/followers/unfollow-followers-controller")
 
-
+ 
 const routes = Router()
 
 
 routes.post("/signup", signupController.signup)
 routes.post("/login", loginController.login)
+routes.get("/myProfile", authMiddleware, loadProfileController.loadMyProfile)
+routes.get("/profile/:username", authMiddleware, loadProfileController.loadProfile)
+routes.put("/editProfile", authMiddleware, editProfileUserController.editarPerfil)
+
 
 routes.get("/posts/:id", findPostController.find)
 routes.post("/posts", authMiddleware, createPostController.create)
