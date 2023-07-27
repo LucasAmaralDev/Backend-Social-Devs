@@ -1,8 +1,10 @@
 const { UsersModel } = require('../../models/users-model')
 const jwt = require('jsonwebtoken');
+const userRepository = require('../../repositories/user-repository');
+
 
 class SignupUserController {
-    async signup(req, res) {
+    async signup (req, res) {
 
         try {
 
@@ -31,7 +33,7 @@ class SignupUserController {
                 return res.status(400).json({ error: 'Usuário já existe' })
             }
 
-            //verificando se o username tem mais de 6 caracteres e menos de 20 
+            //verificando se o username tem mais de 6 caracteres e menos de 20
             if (username.length < 6 || username.length > 20) {
                 return res.status(400).json({ error: 'Usuário deve ter entre 6 e 20 caracteres' })
             }
@@ -67,15 +69,7 @@ class SignupUserController {
                 return res.status(400).json({ error: 'Senha deve ter pelo menos 1 letra maiúscula, 1 letra minúscula e 1 número' })
             }
 
-            //criando usuario
-            const user = await UsersModel.create({
-                name,
-                username,
-                email,
-                password,
-                date_birth,
-                sex
-            })
+            const user = await userRepository.create(req.body);
 
             //verifica se o usuario foi criado caso sim retorna token
             if (user) {
@@ -93,7 +87,7 @@ class SignupUserController {
 
         } catch (error) {
 
-           return res.status(500).json({ error: 'Erro interno' })
+            return res.status(500).json({ error: 'Erro interno' })
 
         }
 
