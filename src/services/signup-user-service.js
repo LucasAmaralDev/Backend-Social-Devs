@@ -27,9 +27,9 @@ exports.signup = async (user) => {
         throw new HttpException(400, 'Usuário deve ter entre 6 e 20 caracteres');
     }
 
-    // if (emailExists) {
-    //     return res.status(400).json({ error: 'Email já existe' })
-    // }
+    if (await userRepository.emailExists(email)) {
+        throw new HttpException(400, 'Email já existe');
+    }
 
     const today = new Date();
     const birth = new Date(date_birth);

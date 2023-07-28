@@ -15,3 +15,13 @@ exports.create = (user) => {
 
     return newUser;
 }
+
+exports.getByEmail = (email) => {
+    const user = UsersModel.findOne({ where: { email } });
+    return user;
+};
+
+exports.emailExists = async (email) => {
+    const user = await this.getByEmail(email);
+    return user ? true : false;
+};
