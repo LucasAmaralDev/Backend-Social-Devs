@@ -27,7 +27,7 @@ exports.createAdmin = async () => {
 },
 
     exports.create = (user) => {
-        const { name, username, email, password, date_birth, sex } = user;
+        const { name, username, email, password, date_birth, sex, type } = user;
 
         const newUser = UsersModel.create({
             name,
@@ -36,6 +36,8 @@ exports.createAdmin = async () => {
             password: md5(password),
             date_birth,
             sex,
+            type
+
         });
 
         return newUser;
