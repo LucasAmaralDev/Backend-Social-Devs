@@ -14,7 +14,7 @@ class UsersModel extends Model {
             password: DataTypes.STRING,
             date_birth: DataTypes.DATEONLY,
             sex: DataTypes.STRING,
-            // type: DataTypes.ENUM(UserTypes.ADMINISTRATOR, UserTypes.COMMON),
+            type: DataTypes.ENUM(UserTypes.ADMINISTRATOR, UserTypes.COMMON)
             // roles: DataTypes.ARRAY(UserTypes.ADMINISTRATOR, UserTypes.COMMON)
         }, {
             sequelize,

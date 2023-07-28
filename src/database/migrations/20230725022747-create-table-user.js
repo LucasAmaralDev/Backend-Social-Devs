@@ -45,10 +45,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      // type: {
-      //   type: Sequelize.ENUM('administrator', 'common'),
-      //   allowNull: false
-      // },
+      type: {
+        type: Sequelize.ENUM('ADMINISTRATOR', 'COMMON'),
+        allowNull: false
+      },
       // roles: {
       //   type: Sequelize.ARRAY(Sequelize.STRING),
       //   allowNull: true

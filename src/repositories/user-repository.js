@@ -11,7 +11,7 @@ exports.createAdmin = async () => {
             password: 'admin',
             date_birth: '1990-01-01',
             sex: 'outro',
-            // type: UserTypes.ADMINISTRATOR,
+            type: UserTypes.ADMINISTRATOR,
             // roles: [UserTypes.ADMINISTRATOR, UserTypes.COMMON]
         };
 
