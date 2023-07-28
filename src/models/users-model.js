@@ -19,7 +19,6 @@ class UsersModel extends Model {
                 allowNull: false,
                 defaultValue: UserTypes.COMMON,
             },
-            // roles: DataTypes.ARRAY(UserTypes.ADMINISTRATOR, UserTypes.COMMON)
         }, {
             sequelize,
             modelName: 'Users',

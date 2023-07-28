@@ -1,25 +1,23 @@
 const HttpException = require("../controllers/exceptions/http.exception.js");
-const { UsersModel } = require("../models/users-model.js");
+const { UserSex } = require("../enums/user-types.js");
 const userRepository = require("../repositories/user-repository.js");
 
 exports.signup = async (user) => {
     const { name, username, email, password, date_birth, sex } = user;
 
+    const today = new Date();
+    const birth = new Date(date_birth);
+    const idade = Math.floor((today - birth) / (1000 * 60 * 60 * 24 * 365));
+
     if (!name || !username || !email || !password || !date_birth || !sex) {
         throw new HttpException(400, 'Dados não enviados');
-    }
-
-    const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-    if (!regexEmail.test(email)) {
-        throw new HttpException(400, 'Email inválido');
     }
 
     if (username.includes(' ')) {
         throw new HttpException(400, 'Usuário não pode conter espaços');
     }
 
-    const usernameExists = await UsersModel.findOne({ where: { username } })
-    if (usernameExists) {
+    if (await userRepository.usernameExists(email)) {
         throw new HttpException(400, 'Usuário já existe');
     }
 
@@ -27,19 +25,20 @@ exports.signup = async (user) => {
         throw new HttpException(400, 'Usuário deve ter entre 6 e 20 caracteres');
     }
 
-    if (await userRepository.emailExists(email)) {
-        throw new HttpException(400, 'Email já existe');
-    }
-
-    const today = new Date();
-    const birth = new Date(date_birth);
-    const idade = Math.floor((today - birth) / (1000 * 60 * 60 * 24 * 365));
-
     if (idade < 13) {
         throw new HttpException(400, 'Usuário deve ter mais de 13 anos');
     }
 
-    if (sex !== 'masc' && sex !== 'fem' && sex !== 'outro') {
+    const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+    if (!regexEmail.test(email)) {
+        throw new HttpException(400, 'Email inválido');
+    }
+
+    if (await userRepository.emailExists(email)) {
+        throw new HttpException(400, 'Email já existe');
+    }
+
+    if (sex !== UserSex.MASC && sex !== UserSex.FEM && sex !== UserSex.OUTRO) {
         throw new HttpException(400, 'Sexo deve ser masc, fem ou outro');
     }
 

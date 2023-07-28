@@ -13,8 +13,8 @@ class SignupUserController {
                 return res.status(error.status).json({ error: error.message });
             }
             return res.status(500).json({ error: "Erro ao criar usuário" });
-        }
-    }
-}
+        };
+    };
+};
 
 module.exports = new SignupUserController();
