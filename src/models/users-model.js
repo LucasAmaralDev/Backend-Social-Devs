@@ -1,6 +1,6 @@
 
 const { Model, DataTypes } = require('sequelize');
-const { UserTypes } = require('../enums/user-types');
+const { UserTypes, UserSex } = require('../enums/user-types');
 
 class UsersModel extends Model {
 
@@ -13,7 +13,7 @@ class UsersModel extends Model {
             avatar: DataTypes.STRING,
             password: DataTypes.STRING,
             date_birth: DataTypes.DATEONLY,
-            sex: DataTypes.STRING,
+            sex: DataTypes.ENUM(UserSex.MASC, UserSex.FEM, UserSex.OUTRO),
             type: {
                 type: DataTypes.ENUM(UserTypes.ADMINISTRATOR, UserTypes.COMMON),
                 allowNull: false,
