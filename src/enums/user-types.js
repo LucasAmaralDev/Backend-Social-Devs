@@ -1,0 +1,4 @@
+exports.UserTypes = {
+  ADMINISTRATOR: 'ADMINISTRATOR',
+  COMMON: 'COMMON',
+};

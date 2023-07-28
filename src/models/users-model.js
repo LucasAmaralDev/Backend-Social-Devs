@@ -1,9 +1,10 @@
 
-const {Model, DataTypes} = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
+const { UserTypes } = require('../enums/user-types');
 
-class UsersModel extends Model{
+class UsersModel extends Model {
 
-    static init(sequelize){
+    static init (sequelize) {
         super.init({
             name: DataTypes.STRING,
             username: DataTypes.STRING,
@@ -13,7 +14,9 @@ class UsersModel extends Model{
             password: DataTypes.STRING,
             date_birth: DataTypes.DATEONLY,
             sex: DataTypes.STRING,
-        },{
+            // type: DataTypes.ENUM(UserTypes.ADMINISTRATOR, UserTypes.COMMON),
+            // roles: DataTypes.ARRAY(UserTypes.ADMINISTRATOR, UserTypes.COMMON)
+        }, {
             sequelize,
             modelName: 'Users',
             tableName: 'users',
@@ -21,11 +24,11 @@ class UsersModel extends Model{
         })
     }
 
-    static associate(models){
-        this.hasMany(models.Posts, {foreignKey: 'user_id', as: 'posts'})
-        this.hasMany(models.Followers, {foreignKey: 'follower_id', as: 'follower'})
-        this.hasMany(models.Followers, {foreignKey: 'followed_id', as: 'followed'})
+    static associate (models) {
+        this.hasMany(models.Posts, { foreignKey: 'user_id', as: 'posts' })
+        this.hasMany(models.Followers, { foreignKey: 'follower_id', as: 'follower' })
+        this.hasMany(models.Followers, { foreignKey: 'followed_id', as: 'followed' })
     }
 }
 
-module.exports = {UsersModel};
+module.exports = { UsersModel };

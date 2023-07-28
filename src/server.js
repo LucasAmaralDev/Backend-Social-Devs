@@ -1,24 +1,31 @@
 // Dependencias
 require('./database')
 require('dotenv').config();
-
-// Libs
 const express = require('express');
 const cors = require('cors');
 
-// Routes
 const { routes } = require('./routes');
+const { createAdmin } = require('./repositories/user-repository');
 
-// Server
 const server = express();
 server.use(cors());
-server.use(express.json());
+server.use(express.json({ limit: '200kb' }));
+server.use(express.urlencoded({ extended: false }));
+
+server.use((error, req, res, next) => {
+    if (error.message === 'request entity too large') {
+        return res.status(413).json({ message: 'Requisição maior que 100KB' });
+    } else {
+        next();
+    }
+});
+
 server.use(routes);
 
 const PORT = process.env.PORT || 3000;
 
+server.listen(PORT, () => console.log(`API V2 running on port ${PORT}`));
 
-// Inicialização do servidor
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+createAdmin();
 
 
