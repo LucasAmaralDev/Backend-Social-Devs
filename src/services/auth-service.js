@@ -1,4 +1,3 @@
-'use strict';
 const jwt = require('jsonwebtoken');
 
 exports.generateToken = async data => {

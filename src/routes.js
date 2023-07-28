@@ -55,7 +55,7 @@ routes.post("/signup", signupController.signup)
 routes.post("/login", loginController.login)
 routes.get("/myProfile", authMiddleware, loadProfileController.loadMyProfile)
 routes.get("/profile/:username", loadProfileController.loadProfile)
-routes.put("/editProfile", authMiddleware, editProfileUserController.editarPerfil)
+routes.put("/editProfile", authMiddleware, editProfileUserController.editProfile)
 
 //rotas para enviar informacoes do usuario logado
 routes.get("/myInfo", authMiddleware, myInfoUserController.getMyInfo)

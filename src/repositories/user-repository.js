@@ -23,21 +23,21 @@ exports.createAdmin = async () => {
         // eslint-disable-next-line no-console
         console.log(error);
     }
-},
+};
 
-    exports.create = (user) => {
-        const { name, username, email, password, date_birth, sex, type } = user;
-        const newUser = UsersModel.create({
-            name,
-            username,
-            email,
-            password: md5(password),
-            date_birth,
-            sex,
-            type
-        });
-        return newUser;
-    };
+exports.create = (user) => {
+    const { name, username, email, password, date_birth, sex, type } = user;
+    const newUser = UsersModel.create({
+        name,
+        username,
+        email,
+        password: md5(password),
+        date_birth,
+        sex,
+        type
+    });
+    return newUser;
+};
 
 exports.getByUsername = (username) => {
     const user = UsersModel.findOne({ where: { username } });
@@ -46,6 +46,11 @@ exports.getByUsername = (username) => {
 
 exports.getByEmail = (email) => {
     const user = UsersModel.findOne({ where: { email } });
+    return user;
+};
+
+exports.getById = (id) => {
+    const user = UsersModel.findOne({ where: { id } });
     return user;
 };
 
@@ -58,3 +63,17 @@ exports.usernameExists = async (username) => {
     const user = await this.getByUsername(username);
     return user ? true : false;
 };
+
+exports.userExistsById = async (id) => {
+    const user = await this.getById(id);
+    return user ? true : false;
+};
+
+exports.update = async (id, data) => {
+    console.log(id);
+    const { name, username, bio, avatar } = data;
+    await UsersModel.update({ name, username, bio, avatar }, {
+        where: { id }
+    })
+};
+
