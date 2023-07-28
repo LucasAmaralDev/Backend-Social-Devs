@@ -1,8 +1,5 @@
 const { Router } = require("express")
-var jwt = require('jsonwebtoken');
 const { authMiddleware } = require("./middleware/auth-middleware")
-
-
 
 const signupController = require("./controllers/users/signup-user-controller")
 const loginController = require("./controllers/users/login-user-controller")
@@ -11,8 +8,6 @@ const editProfileUserController = require("./controllers/users/editprofile-user-
 
 //controller para inviar informacoes do usuario logado
 const myInfoUserController = require("./controllers/users/myInfo-user-controller")
-
-
 
 const createPostController = require("./controllers/posts/create-post-controller")
 const findPostController = require("./controllers/posts/find-post-controller")

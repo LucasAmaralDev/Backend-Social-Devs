@@ -6,10 +6,12 @@ const cors = require('cors');
 
 const { routes } = require('./routes');
 const { createAdmin } = require('./repositories/user-repository');
+const compression = require('compression');
 
 const server = express();
 server.use(cors());
 server.use(express.json({ limit: '200kb' }));
+server.use(compression({ level: 6 }));
 server.use(express.urlencoded({ extended: false }));
 
 server.use((error, req, res, next) => {
