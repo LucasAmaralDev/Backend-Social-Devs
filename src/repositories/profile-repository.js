@@ -8,6 +8,17 @@ exports.loadMyProfile = async (userId) => {
             attributes: ['text', 'date'],
             order: [['date', 'DESC']]
         },
+    });
+};
+
+exports.loadProfile = async (username) => {
+    return await UsersModel.findOne({
+        where: { username },
+        include: {
+            association: 'posts',
+            attributes: ['text', 'date'],
+            order: [['date', 'DESC']]
+        },
         attributes: { exclude: ['password'] }
     });
 };

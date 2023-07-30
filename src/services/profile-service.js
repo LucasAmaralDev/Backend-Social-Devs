@@ -37,3 +37,11 @@ exports.loadMyProfile = async (id) => {
     }
     return await profileRepository.loadMyProfile(id);
 };
+
+exports.loadUserProfile = async (username) => {
+    const userExists = await userRepository.usernameExists(username);
+    if (!userExists) {
+        throw new HttpException(404, "Usuário não encontrado");
+    }
+    return await profileRepository.loadProfile(username);
+};
