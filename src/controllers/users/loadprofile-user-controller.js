@@ -2,6 +2,9 @@ const profileService = require('../../services/profile-service');
 const HttpException = require('../exceptions/http.exception');
 
 class LoadProfileUserController {
+
+    errorMessage = 'Erro ao buscar usuário';
+
     async loadMyProfile (req, res) {
         try {
             const { userId } = req;
@@ -10,7 +13,7 @@ class LoadProfileUserController {
             if (error instanceof HttpException) {
                 return res.status(error.status).json({ error: error.message })
             };
-            return res.status(500).json({ error: 'Erro ao buscar usuário' })
+            return res.status(500).json({ error: this.errorMessage })
         };
     };
 
@@ -23,7 +26,7 @@ class LoadProfileUserController {
             if (error instanceof HttpException) {
                 return res.status(error.status).json({ error: error.message })
             };
-            return res.status(500).json({ error: 'Erro ao buscar usuário' })
+            return res.status(500).json({ error: this.errorMessage })
         };
     };
 };
