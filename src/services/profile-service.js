@@ -1,5 +1,6 @@
 const HttpException = require("../controllers/exceptions/http.exception");
 const userRepository = require("../repositories/user-repository");
+const profileRepository = require("../repositories/profile-repository");
 
 exports.editProfile = async (id, data) => {
     if (!data.email || !data.username) {
@@ -26,9 +27,13 @@ exports.editProfile = async (id, data) => {
         throw new HttpException(400, "Usuário já existe");
     }
 
-    const modifiedUser = await userRepository.update(id, data);
+    return await userRepository.update(id, data);
+};
 
-    console.log(modifiedUser)
-
-    return modifiedUser;
+exports.loadMyProfile = async (id) => {
+    const userExists = await userRepository.userExistsById(id);
+    if (!userExists) {
+        throw new HttpException(404, "Usuário não encontrado");
+    }
+    return await profileRepository.loadMyProfile(id);
 };
