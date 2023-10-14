@@ -1,8 +1,9 @@
+
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up (queryInterface, Sequelize) {
     await queryInterface.createTable('users', {
       id: {
         type: Sequelize.INTEGER,
@@ -44,13 +45,21 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      type: {
+        type: Sequelize.ENUM('ADMINISTRATOR', 'COMMON'),
+        allowNull: false
+      },
+      // roles: {
+      //   type: Sequelize.ARRAY(Sequelize.STRING),
+      //   allowNull: true
+      // }
     },
       {
         timestamps: false
       });
   },
 
-  async down(queryInterface, Sequelize) {
+  async down (queryInterface, Sequelize) {
     await queryInterface.dropTable('users');
   }
 };
